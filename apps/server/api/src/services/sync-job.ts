@@ -1,3 +1,4 @@
+import { fetchSourceTopology } from './source-topology.js'
 // Copyright (C) 2026-present Akitoshi Saeki
 // SPDX-License-Identifier: AGPL-3.0-only
 
@@ -164,7 +165,7 @@ async function runSyncJob(
           statusMessage = snapshot.statusMessage
         } else if (hasTopologyCapability(plugin)) {
           const opts = parseSyncOptions(plugin.type, source.optionsJson)
-          graph = await plugin.fetchTopology(opts)
+          graph = await fetchSourceTopology(plugin, source.dataSourceId, opts)
           status = graph?.nodes && graph.nodes.length > 0 ? 'ok' : 'empty'
         } else {
           throw new Error(
@@ -190,13 +191,13 @@ async function runSyncJob(
         deps.observationsService.updateHysteresis(
           topologyId,
           source.dataSourceId,
-          status === 'failed' ? 'failed' : 'ok',
+          recorded.status === 'failed' ? 'failed' : 'ok',
           capturedAt,
         )
         deps.topologySourcesService.updateLastSynced(source.id)
 
-        step.status = status === 'failed' ? 'failed' : 'done'
-        step.message = statusMessage
+        step.status = recorded.status === 'failed' ? 'failed' : 'done'
+        step.message = recorded.statusMessage
         step.nodeCount = graph?.nodes?.length ?? 0
         step.linkCount = graph?.links?.length ?? 0
       } catch (err) {

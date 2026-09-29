@@ -32,9 +32,6 @@ destinations. Do not pass the token in a URL, command argument, log, or chat.
 
 ### Package-specific
 ```bash
-# Run product website dev server (includes playground)
-cd apps/website && bun run dev
-
 # Run static docs dev server
 cd apps/docs && bun run dev
 
@@ -63,10 +60,12 @@ libs/
 
 apps/
   cli/     ← CLI tool (shumoku render)
-  website/ ← Product website with playground (SvelteKit, Vercel)
   docs/    ← Static documentation site (Astro)
   server/  ← Real-time visualization server
 ```
+
+The public website and browser Playground live in the separate
+`shumoku-dev/shumoku-website` repository and consume published `@shumoku/*` packages.
 
 ### Core Library (`@shumoku/core`)
 
@@ -194,6 +193,13 @@ Pipeline internally handles:
   レビュー可能な意図表明になる。
 - リリース自体は別 PR（`chore: release packages`）のマージで起きるため、公開前に
   必ず人間の承認が挟まる。
+
+## DCO / Commit sign-off
+
+- すべてのコミットに DCO の `Signed-off-by` 行を付ける。通常は `git commit -s`、修正時は `git commit --amend -s` を使う。
+- sign-off の名前・メールはコミット作成者と一致させる。架空の情報や他人の代理署名を使わない。
+- PR 作成・更新前に、PR に含まれる全コミットの sign-off を確認する。最後のコミットへの追記だけでは、以前のコミットの DCO エラーは解消しない。
+- 公開済み履歴の補完では他者の更新を確認し、必要な push は期待するリモート先端を指定した `--force-with-lease` を使う。無条件の `--force` は使わない。
 
 ## Code Style
 

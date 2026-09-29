@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@astrojs/markdown-remark": "^7.3.0",
-    "@biomejs/biome": "^2.5.12",
+    "@biomejs/biome": "^2.5.14",
     "@shumoku/core": "workspace:*",
     "@shumoku/renderer": "workspace:*",
     "@types/bun": "^1.4.2",
@@ -31,6 +31,6 @@
     "turndown-plugin-gfm": "^1.0.2",
     "typedoc": "^0.28.20",
     "typescript": "^6.0.3",
-    "zod": "^4.6.1"
+    "zod": "^4.6.5"
   }
 }
